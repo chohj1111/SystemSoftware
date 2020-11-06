@@ -2,5 +2,5 @@
     .text
 doubleWeight:
     mov %rdi, %rax
-    imul $0x2, %rax
+    imul $2, %rax
     ret
