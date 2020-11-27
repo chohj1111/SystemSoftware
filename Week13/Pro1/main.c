@@ -4,7 +4,7 @@
 void signal_handler(int sig) {
   /*write codes to be executed when the interrupt is caught */
   printf("Caught SIGNINT!\n");
-  exit(EXIT_FAILURE);
+  exit(0);
 }
 
 
