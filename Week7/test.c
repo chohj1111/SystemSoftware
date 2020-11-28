@@ -4,7 +4,7 @@
 
 // linked list
 struct list {
-	char string[70];
+	char* string;
 	struct list *next;
 
 };
@@ -12,11 +12,14 @@ struct list {
 typedef struct list LIST;
 
 // slice string to buffer
-void substr(const char * str, char * buffer, int start, int end){
+void substr(char * str, char * buffer, int start, int end){
 	int j = 0;
+	
 	for (int i = start; i < end; i++) {
+		if(str[j]==EOF) break;
 		buffer[j] = str[i];
 		j++;
+		
 	}
 	buffer[j] = '\0';
 }
@@ -45,20 +48,27 @@ int main(int argc, char *argv[]) {
 	head = current = NULL;
 
 	//read the line until end line
-	while (fgets(line, sizeof(line), fp)) {
+	while (fgets(line, sizeof(line), fp)!=0) {
+		int line_length= (int)strlen(line);
 		// avoid duplicate open characters
-    line[strlen(line)-1]='\0';
+    	line[line_length-1]='\0';
 		// new node
 		LIST *node = (LIST*)malloc(sizeof(LIST));
 		// when line is "TEXT"
 		if (line[0] == 'T') {
 			char temp[70];
 			//slice string for separting codes from TEXT line
-			substr(line, temp, 9, 60);
+			int dd =(line_length<60)?line_length:60;
+			printf("%d\n",dd);
+			substr(line, temp, 9,dd );
+			node->string=malloc(strlen(temp));
 			strcpy(node->string, temp);
 		}
 		// x : flag
-		else strcpy(node->string, "X");
+		else{
+			node->string=malloc(strlen("X"));
+			 strcpy(node->string, "X");
+		}
 		// initialize 'next' pointer
 		node->next = NULL;
 		// when 'node' is first node of list
@@ -78,7 +88,10 @@ int main(int argc, char *argv[]) {
 	//traversal linked list for print codes
 	printf("Codes: \n");
 	for (current = head->next; current; current = current->next) {
-		if(strcmp(current->string,"X")!=0) printf("%s\n", current->string);
+		if(strcmp(current->string,"X")!=0) {
+			printf("%s\n", current->string);
+			printf("%d\n",(int)strlen(current->string));
+		}
 	}
 	//traversal linked list for print incodes
   printf("\n\nEncoded codes : \n");

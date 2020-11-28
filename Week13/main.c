@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
+
 pid_t Fork(void) {
   pid_t pid;
 
@@ -20,14 +22,16 @@ int main(){
   printf("Enter the number of times to execute parent and child processes, respectively: ");
   scanf("%d",&times);
 
-  for(int i=0;i<times;i++){
+
     if(pid==0) {
       /*child process*/
+        for(int i=0;i<times;i++)
       printf("Child: x=%d\n",++input);
     }
     else {
     /*Parent process */
+      for(int i=0;i<times;i++){
       printf("Parent: x=%d\n",--input);
     }
-  }
+    }
 }
