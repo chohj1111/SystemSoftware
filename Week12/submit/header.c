@@ -42,13 +42,11 @@ void addToList_M(char* _data) {
 
 // slice string to buffer
 void substr(char * str, char * buffer, int start, int end){
-	int j = 0;
-	
+	int j = 0;	
 	for (int i = start; i < end; i++) {
 		if(str[j]==EOF) break;
 		buffer[j] = str[i];
-		j++;
-		
+		j++;		
 	}
 	buffer[j] = '\0';
 }

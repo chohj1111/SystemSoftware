@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
 	// startAddress : randomly generated start address
 	// line : for getting line from the file
 	int length,startAddress;
-	char line[70]; 	
+	char line[75]; 	
 	
 	//get first line of object file
 	fgets(line, sizeof(line), fp);
@@ -42,15 +42,11 @@ int main(int argc, char *argv[]) {
 		int line_length= (int)strlen(line); // length of one line
 		line[line_length-1]='\0'; // avoid duplicate open characters
 		// "TEXT"
-		if (line[0] == 'T') {
-			// temp_end: end index of "TEXT" line
-			// row 10~(69 or less) : Byte Codes 
-			int temp_end = (line_length<70)?line_length:70;
-			char temp[70];			
+		if (line[0] == 'T') {			
 			// add to linked list for "TEXT"
 			// per one byte		
 			char twoLetters[2];
-			for(int i=9;i+2<temp_end;i+=2){
+			for(int i=9;i<line_length-1;i+=2){
 				substr(line, twoLetters, i, i+2);
 				addToList_T(twoLetters);
 			}			
@@ -108,14 +104,14 @@ int main(int argc, char *argv[]) {
 		// decCodesToString : convert decCodes to string
 		// "%06X" to handle hex values that have less than 6 digits
 		int decCodes = strtol(hexCodes,NULL,16)+startAddress;
-		char decCodesToString[6];
-		decCodesToString[0]='\0';
-		sprintf(decCodesToString, "%06X", decCodes);
+		char hexCodes_mod[7];
+		//decCodesToString[0]='\0';
+		sprintf(hexCodes_mod, "%06X", decCodes);
 		// print Byte Codes after modification
 		for(int k=0;k<3;k++){
 			int ModificationAddress = relativeAddress+startAddress+k;
 			char printValue[2];
-			substr(decCodesToString, printValue, k*2, (k*2)+2);
+			substr(hexCodes_mod, printValue, k*2, (k*2)+2);
 			printf("%d: %s\n",ModificationAddress,printValue);
 		}
 	}
