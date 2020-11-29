@@ -1,3 +1,7 @@
+#ifndef HEADER_H
+#define HEADER_H
+
+
 // for Linked List 
 struct list {
 	char* data;
@@ -13,3 +17,5 @@ void addToList_M(char* _data); // add node to Linked List for "Modification Reco
 void substr(char * str, char * buffer, int start, int end); // slice string
 
 int randomStartAddress(int _length); // to get start address;
+
+#endif
